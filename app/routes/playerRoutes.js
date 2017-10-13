@@ -5,7 +5,7 @@ const errorMsg = { error: "An error has occured" };
 const collectionName = "players";
 
 module.exports = function(app, db) {
-  app.get("/players", (req, res) => {
+  app.get("/api/players", (req, res) => {
     db
       .collection(collectionName)
       .find()
@@ -18,7 +18,7 @@ module.exports = function(app, db) {
       });
   });
 
-  app.get("/players/:id", (req, res) => {
+  app.get("/api/players/:id", (req, res) => {
     const id = req.params.id;
     const details = { _id: new ObjectID(id) };
     db.collection(collectionName).findOne(details, (err, item) => {
@@ -30,7 +30,7 @@ module.exports = function(app, db) {
     });
   });
 
-  app.delete("/players/:id", (req, res) => {
+  app.delete("/api/players/:id", (req, res) => {
     const id = req.params.id;
     const details = { _id: new ObjectID(id) };
     db.collection(collectionName).remove(details, (err, item) => {
@@ -42,7 +42,7 @@ module.exports = function(app, db) {
     });
   });
 
-  app.post("/players", (req, res) => {
+  app.post("/api/players", (req, res) => {
     const player = new PlayerModel(
       req.body.playerName,
       req.body.wins,
@@ -58,7 +58,7 @@ module.exports = function(app, db) {
     });
   });
 
-  app.put("/players/:id", (req, res) => {
+  app.put("/api/players/:id", (req, res) => {
     const id = req.params.id;
     const details = { _id: new ObjectID(id) };
     const player = new PlayerModel(
